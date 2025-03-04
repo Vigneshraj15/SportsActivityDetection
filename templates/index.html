@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Image Classifier</title>
+    <script>
+        function uploadImage() {
+            let formData = new FormData();
+            let fileInput = document.getElementById("fileInput").files[0];
+            if (!fileInput) {
+                alert("Please select an image!");
+                return;
+            }
+            formData.append("file", fileInput);
+
+            fetch("/predict", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = "Prediction: " + data.class;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error predicting image.");
+            });
+        }
+    </script>
+</head>
+<body style="text-align: center; padding: 50px;">
+    <h2>Sports Image Classifier</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadImage()">Predict</button>
+    <h3 id="result"></h3>
+</body>
+</html>
