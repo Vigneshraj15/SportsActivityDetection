@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load the trained model
-MODEL_PATH = r"E:\WINTER SEMESTER 24-45\DIGITAL IMAGE PROCESSING\archive\sports_model.h5"
+MODEL_PATH = r"E:\WINTER SEMESTER 24-45\DIGITAL IMAGE PROCESSING\archive\saved_models\sports_detection.h5"  # Ensure this path is correct
 model = tf.keras.models.load_model(MODEL_PATH)
 
 # Define class names
@@ -44,7 +44,7 @@ def preprocess_image(image):
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html")  # Serve the frontend
 
 @app.route("/predict", methods=["POST"])
 def predict():
